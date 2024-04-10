@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ pageTitle }}</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+    {{ Css }}
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+
+            <a href="/">Home</a>
+            <a href="#about">About</a>
+            <div class="nav-right">
+                <div class="search-container">
+                    <form method="GET" action="/search">
+                        <input type="text" name="query" value="{{query}}" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+                <div class="navbar-right">
+                    <a href="/users/cart" id="cartSize">Cart ({{cartLength}})</a>
+                    {{#if loggedIn}}
+                    <a href="#">My Orders</a>
+                    <a href="/users/logout">Logout</a>
+
+                    {{else}}
+                    <a href="/users/login">Login</a>
+                    <a href="/users/signup">Sign Up</a>
+                    {{/if}}
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+        {{{body}}}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var cartLength = {{cartLength}};
+
+    function rerenderCartLength(newLength){
+        var cartText = document.getElementById('cartSize')
+        cartText.textContent = 'Cart (' + newLength + ')';
+    }
+</script>
+<script src="/public/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<main class="cart-main">
+    <div class="cart-title-div">
+        <h1>Shopping Cart</h1>
+    </div>
+    <div class="cart-container">
+        {{#if products.length}}
+        <div id="cart-items">
+            {{#each products}}
+            <div class="cart-item">
+                <img class="product-image" src="{{image}}" alt="{{title}} Image">
+                <div class="product-details">
+                    <h2 class="product-name">{{title}}</h2>
+                    <select class="quantity-select">
+                        <option value="1">1</option>
+                        <!-- Add more quantity options if needed -->
+                    </select>
+                    <button class="cart-remove-btn" data-id="{{apiId}}">Remove</button>
+                </div>
+            </div>
+            {{/each}}
+
+        </div>
+        {{else}}
+            <p>Cart Empty!</p>
+        {{/if}}
+    </div>
+    <div class="cart-checkout-container">
+        <button id="checkout-btn">Checkout</button>
+    </div>
+
+</main>

@@ -1,0 +1,21 @@
+ <main class="product-section">
+    <div class="product-grid">
+
+    {{#each products}}
+    <div class="product-card" data-id="{{apiId}}">
+        <img src="{{image}}" alt="{{title}} Image">
+        <div class="product-info">
+            <div class="product-title">{{title}}</div>
+            <div class="product-price">${{price}}</div>
+            {{#if incart}}
+                <button class="add-to-cart-btn" data-id="{{apiId}}" disabled>Added</button>
+            {{else}}
+                <button class="add-to-cart-btn" data-id="{{apiId}}">Add To Cart</button>
+            {{/if}}
+        </div>
+    </div>
+    {{/each}}
+
+    <!-- Add more product cards here -->
+</div>
+</main>

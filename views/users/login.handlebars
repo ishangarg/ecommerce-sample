@@ -1,0 +1,21 @@
+<main style="width: 100%;">
+    <div class="login-section">
+        <h2>Login</h2>
+        {{#if hasMsg}}
+            <h4 class="{{msgType}}-text">{{msg}}</h4>
+        {{/if}}
+        <form id="login-form" method="POST">
+            <div class="form-group">
+                <label for="emailId">Email</label>
+                <input type="text" id="emailId" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="passwordId">Password</label>
+                <input type="password" id="passwordId" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</main>

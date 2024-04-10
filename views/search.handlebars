@@ -1,0 +1,22 @@
+<main class="search-results">
+    <h2>Search Results For: {{query}}</h2>
+    <div class="result-div">
+        <h3>Found {{result.length}} Results</h3>
+        <div class="result">
+            <ol class="result-list">
+                {{#each result}}
+                <li>
+                    <div class="result-li">
+                        <img src="{{image}} " alt="{{title}} image">
+                        <div class="result-desc">
+                            <h4>{{title}}</h4>
+                            <p>Rating: <span>{{rating.rate}}/5</span></p>
+                            <button class="product-btn">Add To Cart</button>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+</main>
