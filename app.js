@@ -2,7 +2,8 @@ import express from 'express';
 const app = express();
 import appRoutes from './routes/index.js';
 import exphbs from 'express-handlebars';
-import sessionMiddleware, { attachCartToRequest, cartLengthMiddleware, setNavbarContext } from './middleware/session.js';
+import sessionMiddleware, { attachCartToRequest, cartLengthMiddleware, setNavbarContext, isLoggedIn } from './middleware/session.js';
+import { calculateTotal } from './helper/handlebarshelpers.js';
 
 const rewriteUnsupportedBrowserMethods = (req, res, next) => {
   if (req.body && req.body._method) {
@@ -18,8 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(rewriteUnsupportedBrowserMethods);
 app.use(sessionMiddleware);
+app.use(isLoggedIn);
 app.use(setNavbarContext);
-app.use((req, res, next) => { //custom middleware to create a global messages functionality
+app.use((req, res, next) => { //custom middleware to create a global messages between views functionality
     if (!req.session.messages) {
         req.session.messages = [];
     }
@@ -36,7 +38,8 @@ app.use((req, res, next) => { //custom middleware to create a global messages fu
 app.use(attachCartToRequest)
 app.use(cartLengthMiddleware)
 
-app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
+
+app.engine('handlebars', exphbs.engine({defaultLayout: 'main', helpers: {calculateTotal}}));
 app.set('view engine', 'handlebars');
 
 appRoutes(app);

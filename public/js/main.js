@@ -48,5 +48,12 @@ $(document).ready(function(){
         });
     });
 
+    $('.quantity-select').change(function() {
+        const quantity = parseInt($(this).val());
+        const price = parseFloat($(this).closest('.cart-item').find('.current-price').text().replace('Price: $', ''));
+        const totalPrice = price * quantity;
+        $(this).closest('.cart-item').find('.total-price #total-price-text').text(totalPrice.toFixed(2));
+    });
+
 
 });

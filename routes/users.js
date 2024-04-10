@@ -92,12 +92,20 @@ router.route('/cart').get(async (req, res) => {
             let products = await productData.getProductsFromIdArray(cart);
             console.log(products)
             res.render('cart', { products });
-        } catch (error) {
+        } catch (error) {c
+        }
+    } else {
+        try{
+            let cart = await userData.getUsersCart(req.session.user.email)
+            let products = await productData.getProductsFromIdArray(cart);
+
+            res.render('cart', { products });
+
+
+        }catch(error){
             console.error('Error fetching products:', error);
             res.status(500).send('Error fetching products');
         }
-    } else {
-        res.render('cart', {}); // Render cart without products if user is not logged in
     }
 });
 

@@ -15,3 +15,4 @@ const getCollection = (collection) => {
 
 export const products = getCollection('products')
 export const users = getCollection('users')
+export const orders = getCollection('orders')

@@ -1,4 +1,5 @@
 import session from 'express-session';
+import { userData } from '../data/index.js';
 
 const sessionMiddleware = session({
     secret: 'KjoLsPdbHB27VKKuDxSU',
@@ -6,9 +7,15 @@ const sessionMiddleware = session({
     saveUninitialized: true
   });
   
-  const attachCartToRequest = (req, res, next) => {
-    if (!req.session.cart) {
-      req.session.cart = []; 
+  const attachCartToRequest = async (req, res, next) => {
+    if (req.isLoggedIn){
+        //update cart state from the db
+        req.session.cart = await userData.getUsersCart(req.session.user.email)
+
+    }else{
+        if (!req.session.cart) {
+            req.session.cart = []; 
+        }
     }
 
     res.locals.cart = req.session.cart;
@@ -24,6 +31,15 @@ const cartLengthMiddleware = (req, res, next) => {
     next();
 };
 
+const isLoggedIn = (req, res, next) => {
+    if (req.session && req.session.user) {
+        req.isLoggedIn = true
+    }else{
+        req.isLoggedIn = false
+    }
+    next()
+}
+
 const setNavbarContext = (req, res, next) => {
     res.locals.loggedIn = req.session.user ? true : false;
     res.locals.email = req.session.user ? req.session.user.email : '';
@@ -31,4 +47,4 @@ const setNavbarContext = (req, res, next) => {
 };
 
 export default sessionMiddleware;
-export { attachCartToRequest, cartLengthMiddleware, setNavbarContext };
+export { attachCartToRequest, cartLengthMiddleware, setNavbarContext, isLoggedIn };

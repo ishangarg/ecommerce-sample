@@ -10,10 +10,15 @@
                 <img class="product-image" src="{{image}}" alt="{{title}} Image">
                 <div class="product-details">
                     <h2 class="product-name">{{title}}</h2>
-                    <select class="quantity-select">
-                        <option value="1">1</option>
-                        <!-- Add more quantity options if needed -->
-                    </select>
+                    <div class="product-price-div">
+                        <span class="current-price">Price: ${{price}}</span>
+                        <select class="quantity-select" data-id="{{apiId}}">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <span class="total-price">Total Price: $<span id="total-price-text">{{calculateTotal price 1}}</span></span>
+                    </div>
                     <button class="cart-remove-btn" data-id="{{apiId}}">Remove</button>
                 </div>
             </div>
